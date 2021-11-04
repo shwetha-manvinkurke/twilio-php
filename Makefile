@@ -36,13 +36,13 @@ docker-build:
 	docker tag twilio/twilio-php smanuvin/twilio-php:latest
 
 docker-push:
-	docker push smanuvin/twilio-go:${GITHUB_TAG}
-	docker push smanuvin/twilio-go:apidefs-${API_DEFINITIONS_SHA}
-	docker push smanuvin/twilio-go:latest
+	docker push smanuvin/twilio-php:${GITHUB_TAG}
+	docker push smanuvin/twilio-php:apidefs-${API_DEFINITIONS_SHA}
+	docker push smanuvin/twilio-php:latest
 
 docker-dev-build:
-	-docker stop twilio_php${VERSION}
-	-docker rm twilio_php${VERSION}
+	docker stop twilio_php${VERSION}
+	docker rm twilio_php${VERSION}
 	docker image build --tag="twilio/php${VERSION}" --build-arg version=${VERSION} -f ./Dockerfile-dev .
 	docker run -td --name="twilio_php${VERSION}" --mount type=bind,source=${PWD},target=/twilio twilio/php${VERSION} /bin/bash
 
