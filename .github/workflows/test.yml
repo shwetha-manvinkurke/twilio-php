@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout twilio-php
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.15.0
