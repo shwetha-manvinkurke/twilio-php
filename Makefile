@@ -31,18 +31,18 @@ authors:
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 docker-build:
 	docker build -t twilio/twilio-php .
-	docker tag twilio/twilio-php twilio/twilio-php:${GITHUB_TAG}
-	docker tag twilio/twilio-php twilio/twilio-php:apidefs-${API_DEFINITIONS_SHA}
-	docker tag twilio/twilio-php twilio/twilio-php:latest
+	docker tag twilio/twilio-php smanuvin/twilio-php:${GITHUB_TAG}
+	docker tag twilio/twilio-php smanuvin/twilio-php:apidefs-${API_DEFINITIONS_SHA}
+	docker tag twilio/twilio-php smanuvin/twilio-php:latest
 
 docker-push:
-	docker push twilio/twilio-php:${GITHUB_TAG}
-	docker push twilio/twilio-php:apidefs-${API_DEFINITIONS_SHA}
-	docker push twilio/twilio-php:latest
+	docker push smanuvin/twilio-php:${GITHUB_TAG}
+	docker push smanuvin/twilio-php:apidefs-${API_DEFINITIONS_SHA}
+	docker push smanuvin/twilio-php:latest
 
 docker-dev-build:
-	-docker stop twilio_php${VERSION}
-	-docker rm twilio_php${VERSION}
+	docker stop twilio_php${VERSION}
+	docker rm twilio_php${VERSION}
 	docker image build --tag="twilio/php${VERSION}" --build-arg version=${VERSION} -f ./Dockerfile-dev .
 	docker run -td --name="twilio_php${VERSION}" --mount type=bind,source=${PWD},target=/twilio twilio/php${VERSION} /bin/bash
 
